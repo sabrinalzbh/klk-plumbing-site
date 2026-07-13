@@ -23,7 +23,7 @@ const firebaseConfig: FirebaseOptions = {
 };
 
 // Whether Firebase env vars have actually been configured. Used elsewhere
-// (e.g. lib/gallery.ts, ContactForm) to gracefully fall back to placeholder
+// (e.g. lib/gallery.ts, EstimateForm) to gracefully fall back to placeholder
 // UI instead of throwing when the project hasn't been wired up yet.
 export const isFirebaseConfigured = Boolean(
   firebaseConfig.apiKey && firebaseConfig.projectId && firebaseConfig.appId
@@ -34,7 +34,7 @@ const app = getApps().length > 0 ? getApp() : initializeApp(firebaseConfig);
 // Firestore and Storage instances. Calling these when Firebase isn't
 // configured will not throw at import time, but reads/writes will fail —
 // callers should check `isFirebaseConfigured` first (see lib/gallery.ts and
-// components/ContactForm.tsx for the pattern).
+// components/EstimateForm.tsx for the pattern).
 export const db = getFirestore(app);
 export const storage = getStorage(app);
 

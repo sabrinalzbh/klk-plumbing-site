@@ -2,7 +2,8 @@
 
 A Next.js 14 (App Router, TypeScript, Tailwind CSS) marketing site for KLK
 Plumbing LLC, serving Greater Cleveland, OH. Includes a Firebase-backed
-contact form (Firestore) and project galleries (Firebase Storage), and is
+estimate request form (Firestore, with an EmailJS email notification on
+every submission) and project galleries (Firebase Storage), and is
 configured to deploy on Netlify via `@netlify/plugin-nextjs`.
 
 ## What Was Built
@@ -17,9 +18,12 @@ configured to deploy on Netlify via `@netlify/plugin-nextjs`.
   (`#residential`, `#commercial`, `#industrial`) that fetch images from
   Firebase Storage at runtime, with graceful placeholder tiles when Storage
   is empty or Firebase isn't configured yet.
-- **Contact** (`app/contact/page.tsx`) — contact form that writes to
-  Firestore (`contactSubmissions`), plus phone/email/service-area text and
-  an embedded Google Map (iframe, no API key required).
+- **Contact** (`app/contact/page.tsx`) — estimate request form
+  (`components/EstimateForm.tsx`: name, phone, project description,
+  preferred start date) that writes to Firestore (`estimateRequests`) and
+  triggers an EmailJS email notification on submit, plus phone/email/
+  service-area text and an embedded Google Map (iframe, no API key
+  required).
 - **Nav / Footer** (`components/Nav.tsx`, `components/Footer.tsx`) — shared
   across every page via `app/layout.tsx`. Nav collapses to a mobile drawer;
   footer shows company name, contact info, service area, and a
@@ -42,8 +46,11 @@ npm run dev
 Visit `http://localhost:3000`.
 
 Until `.env.local` has real Firebase values, the site still runs fine: the
-contact form shows a clear inline error instead of submitting, and the
+estimate form shows a clear inline error instead of submitting, and the
 galleries show "Photo coming soon" placeholder tiles instead of erroring.
+EmailJS notifications are skipped silently (logged to the console) until
+its env vars are set — this never blocks the form, since the Firestore
+write is the system of record for a lead.
 
 ## Firebase Setup
 
@@ -56,19 +63,32 @@ galleries show "Photo coming soon" placeholder tiles instead of erroring.
    (start in production mode, then apply the rules below).
 4. **Enable Storage**: Build → Storage → Get started (same region as
    Firestore is fine).
-5. Deploy the security rules below (Firestore rules tab / Storage rules
-   tab in the console, or via the Firebase CLI).
+5. Deploy the Firestore rules. Either:
+   - Paste the contents of `firestore.rules` (project root) into the
+     Firestore rules tab in the console, **or**
+   - Use the Firebase CLI: `npx firebase-tools deploy --only firestore:rules`
+     (uses `firebase.json` + `firestore.rules`, already included in this
+     repo — you'll need to run `firebase login` and `firebase use
+     <your-project-id>` first).
+6. Deploy the Storage rules below via the Storage rules tab in the console
+   (no `storage.rules` file is included in this repo — only the estimate
+   form's Firestore rules are managed as a file, since Storage is
+   read-only from the client and populated manually).
 
-### Firestore Security Rules (minimal example)
+### Firestore Security Rules
+
+`firestore.rules` (project root) — locks the estimate request collection
+down to create-only from the client, with no public read access:
 
 ```
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
-    // Contact form: anyone can create a submission, no one can read/update/delete
-    // from the client (read them from the Firebase console or an admin tool).
-    match /contactSubmissions/{submissionId} {
+    // Estimate request form: anyone can create a submission, no one can
+    // read/update/delete from the client — view/manage leads directly in
+    // the Firebase console.
+    match /estimateRequests/{requestId} {
       allow create: if true;
       allow read, update, delete: if false;
     }
@@ -78,6 +98,11 @@ service cloud.firestore {
     match /galleryMeta/{docId} {
       allow read: if true;
       allow write: if false;
+    }
+
+    // Deny everything else by default.
+    match /{document=**} {
+      allow read, write: if false;
     }
   }
 }
@@ -101,9 +126,9 @@ service firebase.storage {
 ```
 
 > These are minimal starting points, not production-hardened rules. If you
-> later add an admin dashboard to manage submissions or upload photos,
-> tighten `contactSubmissions` reads and `gallery` writes to authenticated
-> admin users only.
+> later add an admin dashboard to manage leads or upload photos, tighten
+> `estimateRequests` reads and `gallery` writes to authenticated admin
+> users only.
 
 ### Storage Folder Structure for Galleries
 
@@ -124,6 +149,36 @@ required. Optional captions can be added via a Firestore collection called
 string and/or `order` number. See the comments at the top of `lib/gallery.ts`
 for details.
 
+## EmailJS Setup
+
+Every estimate request is always saved to Firestore regardless of email
+delivery — EmailJS just adds an immediate inbox notification on top of that.
+
+1. Create a free account at [emailjs.com](https://www.emailjs.com/) and add
+   an **Email Service** (e.g. connect the Gmail/Outlook inbox that should
+   receive lead notifications) — this gives you a **Service ID**.
+2. Create an **Email Template** with a destination "To Email" set to your
+   business inbox, and a body that references these template variables
+   (they're sent by `lib/emailjs.ts` on every submission):
+   - `{{name}}`
+   - `{{phone}}`
+   - `{{project_description}}`
+   - `{{estimate_start_date}}`
+
+   This gives you a **Template ID**.
+3. Grab your **Public Key** from Account → General.
+4. Add all three to `.env.local` (and later, Netlify env vars):
+   ```
+   NEXT_PUBLIC_EMAILJS_SERVICE_ID=...
+   NEXT_PUBLIC_EMAILJS_TEMPLATE_ID=...
+   NEXT_PUBLIC_EMAILJS_PUBLIC_KEY=...
+   ```
+5. In the EmailJS dashboard, under your account's **Security** settings,
+   restrict allowed origins to your real domain(s) (e.g.
+   `https://klkplumbing.com`, `http://localhost:3000` for local testing) —
+   the public key is meant to be exposed client-side, and origin
+   allow-listing is what keeps it from being abused.
+
 ## Deploying to Netlify
 
 1. Push this repo to GitHub/GitLab/Bitbucket.
@@ -134,12 +189,12 @@ for details.
    - Publish directory: `.next`
    - Plugin: `@netlify/plugin-nextjs` (already declared in `netlify.toml`;
      Netlify will install it automatically as part of the Next.js runtime)
-4. In **Site configuration → Environment variables**, add the same six
-   `NEXT_PUBLIC_FIREBASE_*` variables from `.env.local.example` with your
-   real Firebase values.
+4. In **Site configuration → Environment variables**, add all nine
+   variables from `.env.local.example` (six `NEXT_PUBLIC_FIREBASE_*` values
+   plus the three `NEXT_PUBLIC_EMAILJS_*` values) with your real values.
 5. Deploy. Because this uses the Next.js Netlify runtime (not static
-   export), the contact form's client-side Firestore write works normally
-   on Netlify.
+   export), the estimate form's client-side Firestore write and EmailJS
+   notification both work normally on Netlify.
 
 ## Placeholder Content Checklist
 
@@ -167,17 +222,27 @@ before launch:
   you want displayed publicly.
 - **Metadata / SEO copy** (`app/layout.tsx`, per-page `metadata` exports):
   reasonable defaults were written but should be reviewed for accuracy.
+- **EmailJS credentials** (`.env.local` / Netlify env vars): the site works
+  and estimate requests are still saved to Firestore without these, but no
+  email notification will be sent until a real EmailJS service/template/
+  public key are configured. See "EmailJS Setup" above.
 
 ## Tech Notes
 
 - `lib/firebase.ts` exports `isFirebaseConfigured`, which is `false` until
-  real env vars are set. `components/ContactForm.tsx` and `lib/gallery.ts`
+  real env vars are set. `components/EstimateForm.tsx` and `lib/gallery.ts`
   both check this flag to fail gracefully (styled inline message / placeholder
   tiles) instead of throwing.
+- `lib/emailjs.ts` exports `isEmailJsConfigured` the same way.
+  `EstimateForm` always writes to Firestore first — the email notification
+  is attempted afterward and any failure is caught separately and logged,
+  so it never turns an already-saved lead into a failed submission from the
+  visitor's point of view.
 - All colors are defined once in `tailwind.config.ts` (`background`,
   `foreground`, `accent` + `accent-light`/`accent-dark`, `surface`,
   `border`) and referenced via Tailwind utility classes everywhere — no
-  hardcoded hex colors in components.
+  hardcoded hex colors in components, including form success/error states
+  (no red/green — everything stays within the black/white/silver palette).
 - Scroll-reveal animation is a small IntersectionObserver hook
   (`hooks/useScrollReveal.ts`) wrapped by `components/Reveal.tsx`; no
   external animation library is used.
@@ -185,8 +250,8 @@ before launch:
 ## Verified Before Handoff
 
 `npm install`, `npm run dev` (boot check), and `npm run build` were all run
-successfully in this environment with no real Firebase project configured
-(env vars unset), confirming the graceful-fallback behavior works. Actual
-Firestore writes / Storage reads against a real Firebase project have **not**
-been verified — you'll want to test the contact form and galleries end-to-end
-once real Firebase credentials are in place.
+successfully in this environment with no real Firebase or EmailJS project
+configured (env vars unset), confirming the graceful-fallback behavior
+works. Actual Firestore writes, Storage reads, and EmailJS delivery against
+real projects have **not** been verified — you'll want to test the estimate
+form and galleries end-to-end once real credentials are in place.

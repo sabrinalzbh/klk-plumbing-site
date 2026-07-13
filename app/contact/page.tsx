@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 import { Phone, Mail, MapPin } from "lucide-react";
-import ContactForm from "@/components/ContactForm";
+import EstimateForm from "@/components/EstimateForm";
 import Reveal from "@/components/Reveal";
 
 export const metadata: Metadata = {
   title: "Contact Us | KLK Plumbing LLC",
   description:
-    "Request a plumbing quote from KLK Plumbing LLC. Call, email, or send a message — serving Greater Cleveland, OH.",
+    "Request a plumbing estimate from KLK Plumbing LLC. Call, email, or submit a project for a quote — serving Greater Cleveland, OH.",
 };
 
 // PLACEHOLDER CONTACT INFO — replace before launch (matches Footer.tsx and
@@ -27,14 +27,15 @@ export default function ContactPage() {
           Request a Quote
         </h1>
         <p className="mt-5 max-w-2xl text-accent">
-          Tell us about your plumbing project and we&apos;ll follow up
-          promptly. For urgent issues, call us directly.
+          Tell us about your project and your preferred start date, and
+          we&apos;ll follow up promptly with an estimate. For urgent issues,
+          call us directly.
         </p>
       </Reveal>
 
       <div className="mt-16 grid grid-cols-1 gap-16 lg:grid-cols-5">
         <Reveal delay={100} className="lg:col-span-3">
-          <ContactForm />
+          <EstimateForm />
         </Reveal>
 
         <Reveal delay={150} className="lg:col-span-2">
