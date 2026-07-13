@@ -23,7 +23,7 @@ export default function Footer() {
                 alt="KLK Plumbing LLC"
                 width={1750}
                 height={2000}
-                className="h-14 w-auto object-contain"
+                className="h-24 w-auto object-contain"
               />
             </Link>
             <p className="max-w-xs text-sm text-accent">
