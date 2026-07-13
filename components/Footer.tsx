@@ -17,17 +17,14 @@ export default function Footer() {
       <div className="mx-auto max-w-7xl px-6 py-12">
         <div className="grid grid-cols-1 gap-10 md:grid-cols-3">
           <div className="flex flex-col gap-4">
-            <Link href="/" className="flex items-center gap-3">
+            <Link href="/" className="flex items-center">
               <Image
                 src="/images/logo.png"
-                alt="KLK Plumbing LLC logo"
-                width={40}
-                height={40}
-                className="h-10 w-10 object-contain"
+                alt="KLK Plumbing LLC"
+                width={1750}
+                height={2000}
+                className="h-14 w-auto object-contain"
               />
-              <span className="font-heading text-base font-semibold tracking-wide">
-                KLK PLUMBING LLC
-              </span>
             </Link>
             <p className="max-w-xs text-sm text-accent">
               Reliable residential, commercial, and industrial plumbing

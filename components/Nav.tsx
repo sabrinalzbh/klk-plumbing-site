@@ -33,18 +33,15 @@ export default function Nav() {
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-background/90 backdrop-blur">
       <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-6">
-        <Link href="/" className="flex items-center gap-3">
+        <Link href="/" className="flex items-center">
           <Image
             src="/images/logo.png"
-            alt="KLK Plumbing LLC logo"
-            width={44}
-            height={44}
-            className="h-11 w-11 object-contain"
+            alt="KLK Plumbing LLC"
+            width={1750}
+            height={2000}
+            className="h-16 w-auto object-contain"
             priority
           />
-          <span className="font-heading text-lg font-semibold tracking-wide text-foreground">
-            KLK PLUMBING
-          </span>
         </Link>
 
         {/* Desktop nav */}
