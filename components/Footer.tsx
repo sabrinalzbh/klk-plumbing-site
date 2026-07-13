@@ -15,8 +15,8 @@ export default function Footer() {
   return (
     <footer className="border-t border-border bg-background">
       <div className="mx-auto max-w-7xl px-6 py-12">
-        <div className="grid grid-cols-1 gap-10 md:grid-cols-3">
-          <div className="flex flex-col gap-4">
+        <div className="grid grid-cols-1 gap-10 text-center md:grid-cols-3">
+          <div className="flex flex-col items-center gap-4">
             <Link href="/" className="flex items-center">
               <Image
                 src="/images/logo.png"
@@ -32,7 +32,7 @@ export default function Footer() {
             </p>
           </div>
 
-          <div className="flex flex-col gap-3">
+          <div className="flex flex-col items-center gap-3">
             <h3 className="font-heading text-sm uppercase tracking-widest text-foreground">
               Contact
             </h3>
@@ -53,7 +53,7 @@ export default function Footer() {
             </span>
           </div>
 
-          <div className="flex flex-col gap-3">
+          <div className="flex flex-col items-center gap-3">
             <h3 className="font-heading text-sm uppercase tracking-widest text-foreground">
               Quick Links
             </h3>
@@ -72,7 +72,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-10 border-t border-border pt-6 text-xs text-accent-dark">
+        <div className="mt-10 border-t border-border pt-6 text-center text-xs text-accent-dark">
           &copy; {year} KLK Plumbing LLC. All rights reserved.
         </div>
       </div>
