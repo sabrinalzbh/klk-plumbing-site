@@ -31,56 +31,60 @@ export default function Nav() {
   }, [open]);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-border bg-background/90 backdrop-blur">
-      <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-6">
-        <Link href="/" className="flex items-center">
-          <Image
-            src="/images/logo.png"
-            alt="KLK Plumbing LLC"
-            width={1750}
-            height={2000}
-            className="h-[76px] w-auto object-contain"
-            priority
-          />
-        </Link>
-
-        {/* Desktop nav */}
-        <nav className="hidden items-center gap-10 md:flex">
-          {LINKS.map((link) => {
-            const isActive = pathname === link.href;
-            return (
-              <Link
-                key={link.href}
-                href={link.href}
-                className={`relative py-1 font-heading text-sm uppercase tracking-widest transition-colors hover:text-accent ${
-                  isActive ? "text-accent" : "text-foreground"
-                }`}
-              >
-                {link.label}
-                {isActive && (
-                  <span className="absolute -bottom-1 left-0 h-[2px] w-full bg-accent" />
-                )}
-              </Link>
-            );
-          })}
-          <Link
-            href="/contact"
-            className="rounded-sm border border-accent px-5 py-2 font-heading text-sm uppercase tracking-widest text-foreground transition-colors hover:bg-accent hover:text-background"
-          >
-            Get a Quote
+    <header className="sticky top-0 z-50">
+      {/* backdrop-blur lives on this inner bar (not <header>) so it doesn't
+          create a containing block for the fixed-position drawer below. */}
+      <div className="border-b border-border bg-background/90 backdrop-blur">
+        <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-6">
+          <Link href="/" className="flex items-center">
+            <Image
+              src="/images/logo.png"
+              alt="KLK Plumbing LLC"
+              width={1750}
+              height={2000}
+              className="h-[76px] w-auto object-contain"
+              priority
+            />
           </Link>
-        </nav>
 
-        {/* Mobile toggle */}
-        <button
-          type="button"
-          aria-label={open ? "Close menu" : "Open menu"}
-          aria-expanded={open}
-          onClick={() => setOpen((v) => !v)}
-          className="flex h-10 w-10 items-center justify-center text-foreground md:hidden"
-        >
-          {open ? <X size={26} /> : <Menu size={26} />}
-        </button>
+          {/* Desktop nav */}
+          <nav className="hidden items-center gap-10 md:flex">
+            {LINKS.map((link) => {
+              const isActive = pathname === link.href;
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className={`relative py-1 font-heading text-sm uppercase tracking-widest transition-colors hover:text-accent ${
+                    isActive ? "text-accent" : "text-foreground"
+                  }`}
+                >
+                  {link.label}
+                  {isActive && (
+                    <span className="absolute -bottom-1 left-0 h-[2px] w-full bg-accent" />
+                  )}
+                </Link>
+              );
+            })}
+            <Link
+              href="/contact"
+              className="rounded-sm border border-accent px-5 py-2 font-heading text-sm uppercase tracking-widest text-foreground transition-colors hover:bg-accent hover:text-background"
+            >
+              Get a Quote
+            </Link>
+          </nav>
+
+          {/* Mobile toggle */}
+          <button
+            type="button"
+            aria-label={open ? "Close menu" : "Open menu"}
+            aria-expanded={open}
+            onClick={() => setOpen((v) => !v)}
+            className="flex h-10 w-10 items-center justify-center text-foreground md:hidden"
+          >
+            {open ? <X size={26} /> : <Menu size={26} />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile drawer */}

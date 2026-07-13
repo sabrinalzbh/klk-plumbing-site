@@ -9,7 +9,7 @@ export default function Hero() {
         alt="Cleveland riverfront skyline"
         fill
         priority
-        className="object-cover"
+        className="object-cover object-top"
       />
       {/* Darkening overlay for text legibility, kept within the black/silver palette */}
       <div className="absolute inset-0 bg-gradient-to-t from-background via-background/70 to-background/40" />
