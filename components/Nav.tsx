@@ -30,6 +30,13 @@ export default function Nav() {
     };
   }, [open]);
 
+  // The coming-soon splash page is a standalone takeover with no nav/footer
+  // chrome — see middleware.ts for the maintenance-mode rewrite that sends
+  // visitors here.
+  if (pathname === "/coming-soon") {
+    return null;
+  }
+
   return (
     <header className="sticky top-0 z-50">
       {/* backdrop-blur lives on this inner bar (not <header>) so it doesn't

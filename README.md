@@ -196,6 +196,29 @@ delivery — EmailJS just adds an immediate inbox notification on top of that.
    export), the estimate form's client-side Firestore write and EmailJS
    notification both work normally on Netlify.
 
+## Maintenance Mode ("Coming Soon")
+
+Before launch, the whole site can be swapped out for a simple "coming soon"
+splash page (logo, phone, email — no nav/footer, no real pages reachable)
+via `middleware.ts`, while you (or I) can still browse the real site using a
+secret bypass link.
+
+- **Turn it on**: set `MAINTENANCE_MODE=true` and a
+  `MAINTENANCE_BYPASS_KEY` (any long random string) as Netlify environment
+  variables, then trigger a redeploy. Every visitor is redirected to
+  `/coming-soon`.
+- **Preview the real site while it's on**: visit any page with
+  `?preview=<MAINTENANCE_BYPASS_KEY>` appended, e.g.
+  `https://klkplumbing.com/?preview=your-secret-key`. That sets a 30-day
+  cookie in your browser so you don't need to keep adding the query param —
+  the rest of the site works normally for you from then on, while everyone
+  else still only sees the splash page.
+- **Turn it off**: set `MAINTENANCE_MODE=false` (or delete the variable)
+  and redeploy. The whole site becomes visible to everyone again.
+- The splash page itself lives at `app/coming-soon/page.tsx` and reuses the
+  same placeholder phone/email as the rest of the site — update it in the
+  same pass as the other placeholder content.
+
 ## Placeholder Content Checklist
 
 Everything below is realistic-sounding placeholder content, not real KLK

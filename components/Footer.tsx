@@ -1,5 +1,8 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { Phone, Mail, MapPin } from "lucide-react";
 
 // PLACEHOLDER CONTACT INFO — replace before launch. Same values are used on
@@ -11,6 +14,14 @@ const SERVICE_AREA = "Greater Cleveland, OH";
 
 export default function Footer() {
   const year = new Date().getFullYear();
+  const pathname = usePathname();
+
+  // The coming-soon splash page is a standalone takeover with no nav/footer
+  // chrome — see middleware.ts for the maintenance-mode rewrite that sends
+  // visitors here.
+  if (pathname === "/coming-soon") {
+    return null;
+  }
 
   return (
     <footer className="border-t border-border bg-background">
