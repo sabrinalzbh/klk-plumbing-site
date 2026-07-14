@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import { Phone, Mail } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Coming Soon | KLK Plumbing LLC",
@@ -8,12 +7,6 @@ export const metadata: Metadata = {
     "KLK Plumbing LLC's website is under construction. Check back soon.",
   robots: { index: false, follow: false },
 };
-
-// PLACEHOLDER CONTACT INFO — matches components/Footer.tsx and
-// app/contact/page.tsx. See README.md checklist.
-const PHONE = "(216) 555-0142";
-const PHONE_HREF = "tel:+12165550142";
-const EMAIL = "info@klkplumbing.com";
 
 export default function ComingSoonPage() {
   return (
@@ -34,25 +27,9 @@ export default function ComingSoonPage() {
         Our Website Is On The Way
       </h1>
       <p className="mt-6 max-w-md text-accent">
-        We&apos;re putting the finishing touches on our new site. In the
-        meantime, reach out directly — we&apos;re still taking calls and
-        estimate requests.
+        We&apos;re putting the finishing touches on our new site. Check back
+        soon.
       </p>
-
-      <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row">
-        <a
-          href={PHONE_HREF}
-          className="flex items-center gap-2 rounded-sm bg-accent px-8 py-4 font-heading text-sm uppercase tracking-widest text-background transition-colors hover:bg-accent-light"
-        >
-          <Phone size={18} /> {PHONE}
-        </a>
-        <a
-          href={`mailto:${EMAIL}`}
-          className="flex items-center gap-2 rounded-sm border border-accent px-8 py-4 font-heading text-sm uppercase tracking-widest text-foreground transition-colors hover:bg-foreground hover:text-background"
-        >
-          <Mail size={18} /> {EMAIL}
-        </a>
-      </div>
 
       <p className="mt-16 text-xs text-accent-dark">
         &copy; {new Date().getFullYear()} KLK Plumbing LLC. All rights
