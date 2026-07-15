@@ -24,9 +24,8 @@ export default function Hero() {
             Trustworthy Plumbing for Northeast Ohio
           </h1>
           <p className="mt-6 max-w-xl text-lg text-accent">
-            From dripping faucets to full commercial repipes, KLK Plumbing
-            LLC delivers dependable, professional service you can plan your
-            day around.
+            We plan and execute every project with precision — from
+            blueprint to walkthrough.
           </p>
           <div className="mt-10 flex flex-wrap gap-4">
             <Link
