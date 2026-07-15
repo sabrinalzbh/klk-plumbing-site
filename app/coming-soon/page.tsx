@@ -21,7 +21,7 @@ export default function ComingSoonPage() {
       />
 
       <p className="mt-10 font-heading text-sm uppercase tracking-[0.3em] text-accent">
-        Greater Cleveland, Ohio
+        Northeast Ohio
       </p>
       <h1 className="mt-4 max-w-2xl font-heading text-4xl uppercase leading-tight tracking-tight text-foreground sm:text-5xl">
         Our Website Is On The Way

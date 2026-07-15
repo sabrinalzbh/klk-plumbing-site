@@ -18,7 +18,7 @@ export default function Hero() {
       <div className="relative z-10 mx-auto w-full max-w-7xl px-6">
         <div className="max-w-2xl animate-fade-up">
           <p className="mb-4 font-heading text-sm uppercase tracking-[0.3em] text-accent">
-            Greater Cleveland, Ohio
+            Northeast Ohio
           </p>
           <h1 className="font-heading text-5xl font-semibold uppercase leading-tight tracking-tight text-foreground sm:text-6xl md:text-7xl">
             Reliable Plumbing for Greater Cleveland
