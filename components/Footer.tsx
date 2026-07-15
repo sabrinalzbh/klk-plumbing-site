@@ -10,7 +10,7 @@ import { Phone, Mail, MapPin } from "lucide-react";
 const PHONE = "(216) 555-0142";
 const PHONE_HREF = "tel:+12165550142";
 const EMAIL = "info@klkplumbing.com";
-const SERVICE_AREA = "Greater Cleveland, OH";
+const SERVICE_AREA = "Northeast Ohio";
 
 export default function Footer() {
   const year = new Date().getFullYear();

@@ -19,9 +19,9 @@ const workSans = Work_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "KLK Plumbing LLC | Greater Cleveland Plumbing Services",
+  title: "KLK Plumbing LLC | Northeast Ohio Plumbing Services",
   description:
-    "KLK Plumbing LLC provides reliable residential, commercial, and industrial plumbing services across Greater Cleveland, OH. Licensed, insured, and ready to help.",
+    "KLK Plumbing LLC provides reliable residential, commercial, and industrial plumbing services across Northeast Ohio. Licensed, insured, and ready to help.",
   keywords: [
     "Cleveland plumber",
     "plumbing services Cleveland",

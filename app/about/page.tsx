@@ -5,7 +5,7 @@ import Reveal from "@/components/Reveal";
 export const metadata: Metadata = {
   title: "About Us | KLK Plumbing LLC",
   description:
-    "Learn about KLK Plumbing LLC — a locally owned plumbing company serving Greater Cleveland, OH with honest, reliable residential, commercial, and industrial service.",
+    "Learn about KLK Plumbing LLC — a locally owned plumbing company serving Northeast Ohio with honest, reliable residential, commercial, and industrial service.",
 };
 
 export default function AboutPage() {
@@ -39,7 +39,7 @@ export default function AboutPage() {
               language, and priced fairly. What started as a single truck
               answering calls across the East Side has grown into a
               full-service plumbing company trusted by homeowners, property
-              managers, and facility operators throughout Greater Cleveland.
+              managers, and facility operators throughout Northeast Ohio.
             </p>
             <p className="mb-5 leading-relaxed text-accent">
               We&apos;ve worked in century-old Cleveland Heights bungalows,
@@ -73,7 +73,7 @@ export default function AboutPage() {
                 Service Area
               </h3>
               <p className="text-sm leading-relaxed text-accent">
-                Proudly serving Greater Cleveland, OH — including Cuyahoga
+                Proudly serving Northeast Ohio — including Cuyahoga
                 County and surrounding communities.
               </p>
             </div>

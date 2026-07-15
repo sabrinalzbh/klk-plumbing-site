@@ -6,7 +6,7 @@ import Reveal from "@/components/Reveal";
 export const metadata: Metadata = {
   title: "Contact Us | KLK Plumbing LLC",
   description:
-    "Request a plumbing estimate from KLK Plumbing LLC. Call, email, or submit a project for a quote — serving Greater Cleveland, OH.",
+    "Request a plumbing estimate from KLK Plumbing LLC. Call, email, or submit a project for a quote — serving Northeast Ohio.",
 };
 
 // PLACEHOLDER CONTACT INFO — replace before launch (matches Footer.tsx and
@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 const PHONE = "(216) 555-0142";
 const PHONE_HREF = "tel:+12165550142";
 const EMAIL = "info@klkplumbing.com";
-const SERVICE_AREA = "Greater Cleveland, OH";
+const SERVICE_AREA = "Northeast Ohio";
 
 export default function ContactPage() {
   return (

@@ -6,7 +6,7 @@ import Reveal from "@/components/Reveal";
 export const metadata: Metadata = {
   title: "Services & Gallery | KLK Plumbing LLC",
   description:
-    "Browse photos of KLK Plumbing LLC's residential, commercial, and industrial plumbing work across Greater Cleveland, OH.",
+    "Browse photos of KLK Plumbing LLC's residential, commercial, and industrial plumbing work across Northeast Ohio.",
 };
 
 const CATEGORIES = [
@@ -15,7 +15,7 @@ const CATEGORIES = [
     icon: HomeIcon,
     title: "Residential",
     description:
-      "Repairs, remodels, water heaters, and everyday fixes for homes across Greater Cleveland.",
+      "Repairs, remodels, water heaters, and everyday fixes for homes across Northeast Ohio.",
   },
   {
     id: "commercial",
@@ -45,7 +45,7 @@ export default function ServicesPage() {
         </h1>
         <p className="mt-5 max-w-2xl text-accent">
           A look at recent residential, commercial, and industrial plumbing
-          projects across Greater Cleveland. Jump to a category below.
+          projects across Northeast Ohio. Jump to a category below.
         </p>
       </Reveal>
 

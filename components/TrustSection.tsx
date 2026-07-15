@@ -12,11 +12,11 @@ const STATS = [
   {
     icon: Clock,
     value: "15+ Years",
-    label: "Serving Greater Cleveland families and businesses",
+    label: "Serving Northeast Ohio families and businesses",
   },
   {
     icon: MapPinned,
-    value: "Greater Cleveland, OH",
+    value: "Northeast Ohio",
     label: "Cuyahoga County and surrounding communities",
   },
   {
@@ -32,7 +32,7 @@ export default function TrustSection() {
       <div className="mx-auto max-w-7xl px-6">
         <Reveal>
           <h2 className="mb-14 text-center font-heading text-3xl uppercase tracking-wide text-foreground sm:text-4xl">
-            Why Greater Cleveland Trusts KLK Plumbing
+            Why Northeast Ohio Trusts KLK Plumbing
           </h2>
         </Reveal>
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-3">
