@@ -11,6 +11,7 @@ const PHONE = "(216) 555-0142";
 const PHONE_HREF = "tel:+12165550142";
 const EMAIL = "info@klkplumbing.com";
 const SERVICE_AREA = "Northeast Ohio";
+const LICENSE_NUMBER = "OH LIC# 37395";
 
 export default function Footer() {
   const year = new Date().getFullYear();
@@ -84,7 +85,8 @@ export default function Footer() {
         </div>
 
         <div className="mt-10 border-t border-border pt-6 text-center text-xs text-accent-dark">
-          &copy; {year} KLK Plumbing LLC. All rights reserved.
+          &copy; {year} KLK Plumbing LLC. All rights reserved. &middot;{" "}
+          {LICENSE_NUMBER}
         </div>
       </div>
     </footer>
